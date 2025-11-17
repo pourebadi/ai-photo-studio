@@ -1,20 +1,106 @@
+
+# 🎨 استودیو عکاسی با هوش مصنوعی (AI Photo Studio)
+
 <div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+  <img src="https://storage.googleapis.com/aistudio-public/gallery/16CwadkY7sgVDB7bFkpAmHL-4odsW4Kkf/icon.png" alt="AI Photo Studio Logo" width="150"/>
 </div>
 
-# Run and deploy your AI Studio app
+<p align="center">
+  یک ابزار قدرتمند مبتنی بر وب برای ویرایش و بهبود عکس‌های محصولات با استفاده از قدرت Google Gemini API. این پروژه به کاربران اجازه می‌دهد تا با آپلود یک عکس، تنظیم پارامترهای مختلف عکاسی و حتی ارائه یک تصویر مرجع برای استایل، عکس‌هایی حرفه‌ای و خیره‌کننده تولید کنند.
+</p>
 
-This contains everything you need to run your app locally.
+<p align="center">
+  <a href="https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%2216CwadkY7sgVDB7bFkpAmHL-4odsW4Kkf%22%5D,%22action%22:%22open%22,%22userId%22:%22115549832520327383207%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing"><strong>🚀 نسخه زنده را امتحان کنید!</strong></a>
+</p>
 
-View your app in AI Studio: https://ai.studio/apps/drive/16CwadkY7sgVDB7bFkpAmHL-4odsW4Kkf
+---
 
-## Run Locally
+## ✨ ویژگی‌های کلیدی
 
-**Prerequisites:**  Node.js
+- **🤖 تولید پرامپت هوشمند:** تحلیل خودکار تصویر محصول و ساخت یک پرامپت دقیق و حرفه‌ای.
+- **🎨 انتقال استایل:** آپلود یک تصویر مرجع برای انتقال سبک هنری، پالت رنگ و نورپردازی آن به عکس جدید.
+- **🔧 کنترل کامل صحنه:** تنظیمات دقیق برای نسبت تصویر (Aspect Ratio)، سبک نورپردازی (Lighting Style) و زاویه دوربین (Camera Perspective).
+- **✍️ پرامپت قابل ویرایش:** امکان ویرایش و شخصی‌سازی پرامپت تولید شده توسط هوش مصنوعی.
+- **🖼️ گالری تاریخچه:** ذخیره و مشاهده تمام تصاویر تولید شده و استفاده مجدد از آن‌ها به عنوان تصویر پایه یا مرجع استایل.
+- **🚀 ساخته شده با Gemini:** استفاده از مدل‌های پیشرفته `gemini-2.5-flash` برای تحلیل و `gemini-2.5-flash-image` برای تولید تصاویر.
+- **🌗 پشتیبانی از تم روشن و تاریک:** رابط کاربری زیبا و سازگار با تنظیمات دلخواه شما.
+- **📱 طراحی واکنش‌گرا (Responsive):** تجربه کاربری یکپارچه در دسکتاپ و موبایل.
+
+## 🛠️ تکنولوژی‌های استفاده شده
+
+- **React:** برای ساخت رابط کاربری پویا و کامپوننت‌محور.
+- **TypeScript:** برای افزودن টাইপ-سیفتی و بهبود تجربه توسعه.
+- **Google Gemini API (@google/genai):** برای تمام قابلیت‌های هوش مصنوعی، از تحلیل تا تولید تصویر.
+- **Tailwind CSS:** برای طراحی سریع و واکنش‌گرای رابط کاربری.
+
+## 📸 تصاویر محیط برنامه
+
+<div align="center">
+  <p><em>(تصویری از رابط کاربری برنامه در حالت تاریک)</em></p>
+  <img src="https://storage.googleapis.com/aistudio-public/gallery/16CwadkY7sgVDB7bFkpAmHL-4odsW4Kkf/screenshot.png" alt="Screenshot of the application" width="800"/>
+</div>
 
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## ⚙️ راهنمای نصب و اجرا
+
+برای اجرای این پروژه به صورت محلی، مراحل زیر را دنبال کنید:
+
+### پیش‌نیازها
+
+- نصب [Node.js](https://nodejs.org/) (که شامل `npm` است).
+- یک ویرایشگر کد مانند [VS Code](https://code.visualstudio.com/) به همراه افزونه [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).
+
+### مراحل نصب
+
+1.  **کلون کردن ریپازیتوری:**
+    ```bash
+    git clone https://github.com/YOUR_USERNAME/ai-photo-studio.git
+    cd ai-photo-studio
+    ```
+
+2.  **تنظیم کلید API:**
+    - برای استفاده از Gemini API، شما به یک کلید API نیاز دارید. می‌توانید آن را به صورت رایگان از **[Google AI Studio](https://aistudio.google.com/app/apikey)** دریافت کنید.
+    - در ریشه پروژه، یک فایل جدید با نام `secrets.js` بسازید.
+    - محتوای زیر را در فایل `secrets.js` قرار دهید و کلید API خود را جایگزین `YOUR_API_KEY` کنید:
+      ```javascript
+      // secrets.js
+      process = {
+        env: {
+          API_KEY: 'YOUR_API_KEY'
+        }
+      }
+      ```
+    - **مهم:** این فایل به `.gitignore` اضافه شده است تا از انتشار تصادفی کلید API شما جلوگیری شود.
+
+3.  **افزودن اسکریپت به HTML:**
+    - فایل `index.html` را باز کنید.
+    - قبل از خطی که `index.tsx` را وارد می‌کند، خط زیر را اضافه کنید تا کلید شما در محیط مرورگر قابل دسترس باشد:
+      ```html
+      <script src="/secrets.js"></script>
+      <!-- This should be right before the index.tsx script tag -->
+      <script type="module" src="/index.tsx"></script>
+      ```
+
+4.  **اجرای پروژه:**
+    - این پروژه از ابزارهای build مدرن استفاده نمی‌کند و مستقیماً در مرورگر اجرا می‌شود.
+    - در VS Code، روی فایل `index.html` راست‌کلیک کرده و گزینه `Open with Live Server` را انتخاب کنید.
+    - پروژه در مرورگر شما باز خواهد شد.
+
+## 🔩 نحوه کارکرد
+
+جریان کاری برنامه به صورت خلاصه به شکل زیر است:
+
+1.  **آپلود تصویر محصول:** کاربر تصویر اصلی را آپلود می‌کند.
+2.  **تحلیل محصول:** مدل `gemini-2.5-flash` تصویر را تحلیل کرده و یک توضیح متنی دقیق (پرامپت پایه) برای آن تولید می‌کند.
+3.  **تحلیل استایل (اختیاری):** در صورت آپلود تصویر استایل، این تصویر نیز توسط مدل تحلیل شده و ویژگی‌های بصری آن (مانند رنگ، نور و بافت) استخراج می‌شود.
+4.  **ساخت پرامپت نهایی:** تنظیمات کاربر (نور، زاویه دوربین، نسبت تصویر و...) با توضیحات متنی ترکیب شده و یک پرامپت نهایی، جامع و قدرتمند ساخته می‌شود.
+5.  **تولید تصویر:** این پرامپت به همراه تصویر اصلی محصول (که ابعاد آن برای مدل بهینه‌سازی شده) به مدل `gemini-2.5-flash-image` ارسال می‌شود.
+6.  **نمایش نتیجه:** تصویر نهایی دریافت و در "بوم هوش مصنوعی" نمایش داده می‌شود و یک نسخه از آن به گالری تاریخچه اضافه می‌گردد.
+
+## 🤝 مشارکت
+
+از مشارکت شما در این پروژه استقبال می‌کنیم! اگر ایده‌ای برای بهبود دارید یا با مشکلی مواجه شدید، لطفاً یک **Issue** جدید باز کنید یا یک **Pull Request** ارسال نمایید.
+
+## 📄 مجوز (License)
+
+این پروژه تحت مجوز **MIT** منتشر شده است. برای اطلاعات بیشتر فایل `LICENSE` را مطالعه کنید.
