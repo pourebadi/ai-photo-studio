@@ -1,6 +1,7 @@
+
 import React from 'react';
-import { AspectRatio, LightingStyle, CameraPerspective, StyleStrength, ImageFile } from '../types';
-import { ASPECT_RATIO_OPTIONS, LIGHTING_STYLE_OPTIONS, CAMERA_PERSPECTIVE_OPTIONS, STYLE_STRENGTH_OPTIONS } from '../constants';
+import { AspectRatio, LightingStyle, CameraPerspective, StyleStrength, ImageFile, VisualEffect } from '../types';
+import { ASPECT_RATIO_OPTIONS, LIGHTING_STYLE_OPTIONS, CAMERA_PERSPECTIVE_OPTIONS, STYLE_STRENGTH_OPTIONS, VISUAL_EFFECT_OPTIONS } from '../constants';
 import ImageUploader from './ImageUploader';
 import Spinner from './Spinner';
 import Tabs from './Tabs';
@@ -24,6 +25,8 @@ interface ControlPanelProps {
   isPromptLoading: boolean;
   productImage: ImageFile | null;
   onProductImageUpload: (file: File) => void;
+  visualEffects: VisualEffect[];
+  setVisualEffects: (effects: VisualEffect[]) => void;
 }
 
 type SectionProps = { title: string, children?: React.ReactNode };
@@ -71,6 +74,8 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   isPromptLoading,
   productImage,
   onProductImageUpload,
+  visualEffects,
+  setVisualEffects,
 }) => {
 
   const sceneControls = (
@@ -128,9 +133,34 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
         </div>
   );
 
+  const handleEffectChange = (effect: VisualEffect, checked: boolean) => {
+    if (checked) {
+        setVisualEffects([...visualEffects, effect]);
+    } else {
+        setVisualEffects(visualEffects.filter(e => e !== effect));
+    }
+  };
+
+  const effectsControls = (
+      <div className="space-y-3">
+          {VISUAL_EFFECT_OPTIONS.map(effect => (
+              <label key={effect} className="flex items-center space-x-3 cursor-pointer">
+                  <input
+                      type="checkbox"
+                      checked={visualEffects.includes(effect)}
+                      onChange={(e) => handleEffectChange(effect, e.target.checked)}
+                      className="h-4 w-4 rounded border-[var(--border)] bg-[var(--secondary)] text-[var(--primary)] focus:ring-1 focus:ring-[var(--ring)]"
+                  />
+                  <span className="text-sm text-[var(--foreground)]">{effect}</span>
+              </label>
+          ))}
+      </div>
+  );
+
   const tabs = [
     { label: 'Scene', content: sceneControls },
     { label: 'Style', content: styleControls },
+    { label: 'Effects', content: effectsControls },
   ];
 
   return (

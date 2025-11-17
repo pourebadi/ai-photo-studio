@@ -1,5 +1,8 @@
 # 🎨 AI Photo Studio
 
+<div align="center">
+  <img src="https://storage.googleapis.com/aistudio-public/gallery/16CwadkY7sgVDB7bFkpAmHL-4odsW4Kkf/icon.png" alt="AI Photo Studio Logo" width="150"/>
+</div>
 
 <p align="center">
   A powerful web-based tool for editing and enhancing product photos using the power of the Google Gemini API. This project allows users to generate professional and stunning photographs by uploading an image, adjusting various photography parameters, and even providing a style reference image.

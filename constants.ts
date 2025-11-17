@@ -1,5 +1,5 @@
 
-import { AspectRatio, LightingStyle, CameraPerspective, StyleStrength } from './types';
+import { AspectRatio, LightingStyle, CameraPerspective, StyleStrength, VisualEffect } from './types';
 
 export const ASPECT_RATIO_OPTIONS = [
   AspectRatio.SQUARE,
@@ -12,3 +12,4 @@ export const ASPECT_RATIO_OPTIONS = [
 export const LIGHTING_STYLE_OPTIONS = Object.values(LightingStyle);
 export const CAMERA_PERSPECTIVE_OPTIONS = Object.values(CameraPerspective);
 export const STYLE_STRENGTH_OPTIONS = Object.values(StyleStrength);
+export const VISUAL_EFFECT_OPTIONS = Object.values(VisualEffect);

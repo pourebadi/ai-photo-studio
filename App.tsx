@@ -1,5 +1,6 @@
+
 import React, { useState, useCallback, useEffect } from 'react';
-import { AspectRatio, CameraPerspective, ImageFile, LightingStyle, StyleStrength } from './types';
+import { AspectRatio, CameraPerspective, ImageFile, LightingStyle, StyleStrength, VisualEffect } from './types';
 import { fileToBase64, base64ToFile } from './utils/imageUtils';
 import ControlPanel from './components/ControlPanel';
 import Spinner from './components/Spinner';
@@ -19,6 +20,7 @@ const App: React.FC = () => {
   const [lightingStyle, setLightingStyle] = useState<LightingStyle>(LightingStyle.STUDIO);
   const [cameraPerspective, setCameraPerspective] = useState<CameraPerspective>(CameraPerspective.EYE_LEVEL);
   const [styleStrength, setStyleStrength] = useState<StyleStrength>(StyleStrength.BALANCED);
+  const [visualEffects, setVisualEffects] = useState<VisualEffect[]>([]);
   
   const [history, setHistory] = useState<string[]>([]);
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
@@ -51,6 +53,7 @@ const App: React.FC = () => {
     lightingStyle,
     cameraPerspective,
     styleStrength,
+    visualEffects,
     setError
   });
 
@@ -179,6 +182,8 @@ const App: React.FC = () => {
                   resetPrompt={resetPrompt}
                   autoPrompt={autoPrompt}
                   isPromptLoading={isPromptLoading}
+                  visualEffects={visualEffects}
+                  setVisualEffects={setVisualEffects}
                 />
             </div>
             <div className="flex-shrink-0 pt-4 space-y-2">

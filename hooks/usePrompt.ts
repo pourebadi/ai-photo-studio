@@ -1,6 +1,7 @@
+
 import { useState, useEffect, useCallback } from 'react';
 import { describeStyleImage, describeProductImage } from '../services/geminiService';
-import { AspectRatio, CameraPerspective, ImageFile, LightingStyle, StyleStrength } from '../types';
+import { AspectRatio, CameraPerspective, ImageFile, LightingStyle, StyleStrength, VisualEffect } from '../types';
 
 const PROMPT_KEYWORDS = {
   // Aspect Ratios - describes the composition and framing
@@ -32,6 +33,19 @@ const PROMPT_KEYWORDS = {
   [CameraPerspective.DUTCH_ANGLE]: 'shot with a creative Dutch angle (tilted camera), creating a dynamic, edgy, and visually interesting composition',
 };
 
+const PROMPT_EFFECT_KEYWORDS = {
+  [VisualEffect.RAINY]: 'The product is in a rainy scene, with glistening water droplets on its surface.',
+  [VisualEffect.SNOWY]: 'The product is in a serene, snowy landscape, lightly dusted with snowflakes.',
+  [VisualEffect.FOGGY]: 'The product is shrouded in a soft, mysterious morning fog.',
+  [VisualEffect.GOLDEN_HOUR]: 'The scene is bathed in the warm, magical light of the golden hour.',
+  [VisualEffect.STARRY_NIGHT]: 'The product is set against a clear, beautiful starry night sky.',
+  [VisualEffect.ON_MODEL]: 'The product is being worn or used by a photorealistic human model (face may be partially obscured for focus on the product).',
+  [VisualEffect.IN_HAND]: 'The product is being held elegantly by a human hand.',
+  [VisualEffect.LEVITATING]: 'The product is magically levitating in mid-air, perhaps with a subtle glow or energy effect around it.',
+  [VisualEffect.MOTION_BLUR]: 'This is a dynamic action shot, capturing the product with a sense of speed and motion blur.',
+  [VisualEffect.NEON_GLOW]: 'The product is illuminated by and surrounded by vibrant, futuristic neon lights and reflections.',
+};
+
 interface UsePromptProps {
     productImage: ImageFile | null;
     styleImage: ImageFile | null;
@@ -39,6 +53,7 @@ interface UsePromptProps {
     lightingStyle: LightingStyle;
     cameraPerspective: CameraPerspective;
     styleStrength: StyleStrength;
+    visualEffects: VisualEffect[];
     setError: (error: string | null) => void;
 }
 
@@ -54,6 +69,7 @@ export const usePrompt = ({
     lightingStyle,
     cameraPerspective,
     styleStrength,
+    visualEffects,
     setError,
 }: UsePromptProps) => {
     const [userPrompt, setUserPrompt] = useState<string>('');
@@ -127,13 +143,21 @@ export const usePrompt = ({
         };
     
         const sceneDetails = `The final image is ${PROMPT_KEYWORDS[cameraPerspective]}. It is illuminated by ${PROMPT_KEYWORDS[lightingStyle]}. The composition is ${PROMPT_KEYWORDS[aspectRatio]}. The overall image should be high-resolution, visually stunning, and commercially appealing.`;
+        
+        const effectsDetails = visualEffects.length > 0 
+            ? `Additional visual effects to include: ${visualEffects.map(e => PROMPT_EFFECT_KEYWORDS[e]).join(' ')}`
+            : '';
     
+        let basePrompt = '';
         if (styleDescription) {
-          return `Create a new image of the provided product. The base aesthetic for the product itself is: "${productDescription}". The new image should be ${strengthDescription[styleStrength]} the following style: "${styleDescription}". Additionally, incorporate these specific scene requirements: ${sceneDetails}`;
+          basePrompt = `Create a new image of the provided product. The base aesthetic for the product itself is: "${productDescription}". The new image should be ${strengthDescription[styleStrength]} the following style: "${styleDescription}". Additionally, incorporate these specific scene requirements: ${sceneDetails}`;
+        } else {
+            basePrompt = `${productDescription} ${sceneDetails}`;
         }
         
-        return `${productDescription} ${sceneDetails}`;
-      }, [productDescription, styleDescription, lightingStyle, cameraPerspective, aspectRatio, styleStrength, productImage]);
+        return `${basePrompt} ${effectsDetails}`.trim().replace(/\s+/g, ' ');
+
+      }, [productDescription, styleDescription, lightingStyle, cameraPerspective, aspectRatio, styleStrength, productImage, visualEffects]);
 
 
     // Effect to update the auto-prompt and user-prompt

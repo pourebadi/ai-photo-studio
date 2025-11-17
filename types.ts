@@ -35,6 +35,20 @@ export enum StyleStrength {
   STRONG = 'Strong',
 }
 
+export enum VisualEffect {
+  RAINY = 'Rainy (with water droplets)',
+  SNOWY = 'Snowy',
+  FOGGY = 'Foggy Morning',
+  GOLDEN_HOUR = 'Golden Hour Sunlight',
+  STARRY_NIGHT = 'Starry Night',
+  ON_MODEL = 'Worn by a human model',
+  IN_HAND = 'Held in a hand',
+  LEVITATING = 'Levitating with a magical glow',
+  MOTION_BLUR = 'Action shot with motion blur',
+  NEON_GLOW = 'Surrounded by a futuristic neon glow',
+}
+
+
 export interface ImageFile {
   file: File;
   base64: string;

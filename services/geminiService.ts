@@ -107,11 +107,13 @@ export const generateEditedImage = async (productImageBase64: string, prompt: st
             },
         });
 
-        const firstPart = response.candidates?.[0]?.content?.parts[0];
-        if (firstPart && 'inlineData' in firstPart && firstPart.inlineData) {
-            const base64ImageBytes: string = firstPart.inlineData.data;
-            const imageMimeType = firstPart.inlineData.mimeType;
-            return `data:${imageMimeType};base64,${base64ImageBytes}`;
+        const parts = response.candidates?.[0]?.content?.parts ?? [];
+        for (const part of parts) {
+            if (part.inlineData) {
+                const base64ImageBytes: string = part.inlineData.data;
+                const imageMimeType = part.inlineData.mimeType;
+                return `data:${imageMimeType};base64,${base64ImageBytes}`;
+            }
         }
 
         const finishReason = response.candidates?.[0]?.finishReason;
